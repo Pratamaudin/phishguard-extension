@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhishGuard</title>
+
+    <style>
+      body {
+        box-sizing: border-box;
+        width: 350px;
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        color: #e2e8f0;
+        background: #0f172a;
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: 24px;
+      }
+
+      .subtitle,
+      .note {
+        color: #94a3b8;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .card {
+        margin-top: 16px;
+        padding: 14px;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        background: #1e293b;
+      }
+
+      #hostname,
+      #findings {
+        overflow-wrap: anywhere;
+      }
+
+      #hostname {
+        font-weight: bold;
+      }
+
+      #status {
+        line-height: 1.5;
+      }
+
+      #status[data-state="warning"] {
+        color: #fbbf24;
+      }
+
+      #status[data-state="neutral"] {
+        color: #93c5fd;
+      }
+
+      #status[data-state="error"] {
+        color: #fca5a5;
+      }
+
+      ul {
+        padding-left: 20px;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      li + li {
+        margin-top: 8px;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 16px;
+        padding: 11px;
+        border: none;
+        border-radius: 8px;
+        color: #ffffff;
+        background: #2563eb;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #1d4ed8;
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>PhishGuard</h1>
+    <p class="subtitle">Pemeriksa indikator risiko phishing</p>
+
+    <div class="card">
+      <p class="subtitle">Hostname halaman</p>
+      <p id="hostname">Belum diperiksa</p>
+      <p id="passwordCount" class="subtitle">
+        Kolom password terdeteksi: belum diperiksa
+      </p>
+    </div>
+
+    <div class="card" aria-live="polite">
+      <p id="status">Siap memeriksa halaman.</p>
+      <ul id="findings"></ul>
+    </div>
+
+    <div class="card">
+      <p class="subtitle">Navigasi terakhir yang tercatat</p>
+      <p id="navigationInfo" aria-live="polite">Belum diperiksa.</p>
+    </div>
+
+    <button id="scanButton" type="button">Periksa halaman</button>
+
+    <p class="note">
+      Cakupan: pola domain tertentu dan struktur formulir pada DOM utama
+      halaman. Iframe, Shadow DOM halaman, dan tujuan request JavaScript belum
+      diperiksa. Informasi redirect berasal dari Chrome. Hasil tanpa temuan
+      tidak menjamin halaman aman.
+    </p>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
