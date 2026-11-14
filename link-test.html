@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PhishGuard — pengujian tautan</title>
+    <style>
+      body { max-width: 760px; margin: 40px auto; padding: 0 20px; font: 16px/1.7 Arial, sans-serif; }
+      section { margin: 22px 0; padding: 18px; border: 1px solid #cbd5e1; border-radius: 10px; }
+      button { padding: 10px 16px; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <h1>Pengujian ketidaksesuaian tautan</h1>
+    <p>Tidak perlu mengeklik tautan. Klik tautan pada halaman uji ini dibatalkan oleh JavaScript.</p>
+    <section>
+      <h2>1. Teks dan tujuan cocok</h2>
+      <a href="https://example.com/login">https://example.com/login</a>
+      <p>Hasil: tidak ada temuan ketidaksesuaian hostname.</p>
+    </section>
+    <section>
+      <h2>2. Teks dan tujuan berbeda</h2>
+      <a href="https://example.org/login">https://example.com/login</a>
+      <p>Hasil: teks menyebut example.com, tetapi tujuan HTML example.org.</p>
+    </section>
+    <section>
+      <h2>3. Label biasa</h2>
+      <a href="https://example.org/login">Buka halaman login</a>
+      <p>Hasil: dilewati oleh aturan ini, karena teks bukan alamat web.</p>
+    </section>
+    <section>
+      <h2>4. Perubahan teks setelah halaman dimuat</h2>
+      <a id="dynamicLink" href="https://example.net/">https://example.net/</a>
+      <p><button id="changeLink" type="button">Ubah teks tautan ke example.edu</button></p>
+      <p>Hasil setelah tombol ditekan: satu temuan tambahan.</p>
+    </section>
+    <script>
+      document.addEventListener("click", (event) => {
+        if (event.target.closest("a")) event.preventDefault();
+      });
+      document.getElementById("changeLink").addEventListener("click", () => {
+        document.getElementById("dynamicLink").firstChild.data = "https://example.edu/";
+      });
+    </script>
+  </body>
+</html>

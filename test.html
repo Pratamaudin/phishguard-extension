@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pengujian Formaction</title>
+  </head>
+
+  <body>
+    <h1>Pengujian tujuan alternatif tombol</h1>
+    <p>Formulir dummy. Tidak perlu memasukkan data.</p>
+
+    <form id="testForm" action="/login" method="post">
+      <label>
+        Password dummy:
+        <input type="password" />
+      </label>
+
+      <button
+        type="submit"
+        formaction="/login"
+      >
+        Login dummy
+      </button>
+    </form>
+
+    <script>
+      // Mencegah pengiriman jika tombol tidak sengaja diklik.
+      document
+        .getElementById("testForm")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+        });
+    </script>
+  </body>
+</html>
